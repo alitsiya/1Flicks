@@ -1,27 +1,18 @@
 package com.codepath.codepath1;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.util.Log;
-
-import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
 public class JsonData {
 
-    public List<Movie> parseJson(JSONObject mMovieData) throws JSONException {
-        List<Movie> movieList= new ArrayList<Movie>();
+    public ArrayList<Movie> getMovieList(JSONObject mMovieData) throws JSONException {
+        ArrayList<Movie> movieList = new ArrayList<>();
         try {
             int length = mMovieData.getJSONArray("results").length();
             for (int i=0; i< length; i++) {
@@ -55,21 +46,58 @@ public class JsonData {
     }
 
     public class Movie{
-        private String posterPath;
-        private Boolean adult;
-        private String overview;
-        private Date releaseDate;
-        private String genreIds;
-        private Integer id;
-        private String originalTitle;
-        private String originalLanguage;
-        private String title;
-        private String backdropPath;
-        private String popularity;
-        private Integer voteCount;
-        private Boolean video;
-        private String voteAverage;
+
+        public String posterPath;
+        public Boolean adult;
+        public String overview;
+        public Date releaseDate;
+        public String genreIds;
+        public Integer id;
+        public String originalTitle;
+        public String originalLanguage;
+        public String title;
+        public String backdropPath;
+        public String popularity;
+        public Integer voteCount;
+        public Boolean video;
+        public String voteAverage;
+        public Movie(){
+            super();
+        }
+
+        public Movie(String posterPath,
+                    Boolean adult,
+                    String overview,
+                    Date releaseDate,
+                    String genreIds,
+                    int id,
+                    String originalTitle,
+                    String originalLanguage,
+                    String title,
+                    String backdropPath,
+                    String popularity,
+                    int voteCount,
+                    Boolean video,
+                    String voteAverage) {
+            super();
+            this.posterPath = posterPath;
+            this.adult = adult;
+            this.overview = overview;
+            this.releaseDate = releaseDate;
+            this.genreIds = genreIds;
+            this.id = id;
+            this.originalTitle = originalTitle;
+            this.originalLanguage = originalLanguage;
+            this.title = title;
+            this.backdropPath = backdropPath;
+            this.popularity = popularity;
+            this.voteCount = voteCount;
+            this.video = video;
+            this.voteAverage = voteAverage;
+        }
     }
+
+
     
 }
 

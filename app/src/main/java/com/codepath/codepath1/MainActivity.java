@@ -4,44 +4,39 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<JsonData.Movie> movieList;
+    ArrayList<JsonData.Movie> mMovieList;
+    JsonData json = new JsonData();
+
+    private MovieDataRequestHandler mMovieDataRequestHandler = new MovieDataRequestHandler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView text = (TextView) findViewById(R.id.movieTitle);
-        WebRequest.getMovieData(new JsonHttpResponseHandler() {
+
+        mMovieDataRequestHandler.getMovieData(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject responseJSON) {
-                JsonData movieData = new JsonData();
                 try {
-                    movieList = movieData.parseJson(responseJSON);
-                    Log.d("@@@", "onSuccess movieList " + movieList);
-                    text.setText(movieList.toString());
+                    mMovieList = json.getMovieList(responseJSON);
+                    Log.d("@@@", "onSuccess movieList " + mMovieList);
+                    if (mMovieList != null) {
+                        populateUsersList(mMovieList);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -57,16 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Log.d("@@@", "onFinish movieList " + movieList);
+                Log.d("@@@", "onFinish movieList " + mMovieList);
             }
         });
     }
-}
-
-final class WebRequest {
-    private static AsyncHttpClient mClient = new AsyncHttpClient();
-
-    public static void getMovieData(JsonHttpResponseHandler handler) {
-        mClient.post("https://api.themoviedb.org/3/movie/now_playing?api_key=", handler);
+    private void populateUsersList(ArrayList<JsonData.Movie> movieList) {
+        // Create the adapter to convert the array to views
+        CustomMovieAdapter adapter = new CustomMovieAdapter(this, movieList);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.movieItem);
+        listView.setAdapter(adapter);
     }
 }
