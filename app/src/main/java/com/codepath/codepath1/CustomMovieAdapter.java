@@ -2,7 +2,6 @@ package com.codepath.codepath1;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +13,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-class CustomMovieAdapter extends ArrayAdapter<JsonData.Movie>  {
+class CustomMovieAdapter extends ArrayAdapter<Movie>  {
 
     private Context mContext;
 
-    CustomMovieAdapter(Context context, ArrayList<JsonData.Movie> movies) {
+    CustomMovieAdapter(Context context, ArrayList<Movie> movies) {
         super(context, 0, movies);
         mContext = context;
     }
@@ -26,7 +25,7 @@ class CustomMovieAdapter extends ArrayAdapter<JsonData.Movie>  {
     @Override
     public @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // Get the data item for this position
-        JsonData.Movie movie = getItem(position);
+        Movie movie = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_movie, parent, false);
@@ -36,7 +35,6 @@ class CustomMovieAdapter extends ArrayAdapter<JsonData.Movie>  {
         TextView movieDescription = (TextView) convertView.findViewById(R.id.movieDescription);
         // Populate the data into the template view using the data object
         String imageUri = "https://image.tmdb.org/t/p/w500" + movie.posterPath;
-        Log.d("@@@", imageUri);
         ImageView movieImage = (ImageView) convertView.findViewById(R.id.movieImage);
         Picasso.with(mContext).load(imageUri).into(movieImage);
         movieName.setText(movie.title);
