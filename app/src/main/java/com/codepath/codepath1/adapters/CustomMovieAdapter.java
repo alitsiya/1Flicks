@@ -14,6 +14,8 @@ import com.codepath.codepath1.R;
 import com.codepath.codepath1.models.Movie;
 import com.squareup.picasso.Picasso;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +49,11 @@ public class CustomMovieAdapter extends ArrayAdapter<Movie>  {
         }
 
         ImageView movieImage = (ImageView) convertView.findViewById(R.id.movieImage);
-        Picasso.with(mContext).load(imageUri).fit().centerCrop()
+        Picasso.with(mContext).load(imageUri)
+            .fit().centerCrop()
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.error)
+            .transform(new RoundedCornersTransformation(10, 10))
             .into(movieImage);
         movieName.setText(movie.title);
         movieDescription.setText(movie.overview);

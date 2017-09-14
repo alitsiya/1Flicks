@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 import static com.codepath.codepath1.MainActivity.EXTRA_MESSAGE;
 
@@ -36,7 +37,9 @@ public class MovieActivity extends AppCompatActivity {
             if (movie != null) {
                 String imageUri = "https://image.tmdb.org/t/p/w500" + movie.posterPath;
 
-                Picasso.with(getApplicationContext()).load(imageUri).into(mMovieImage);
+                Picasso.with(getApplicationContext()).load(imageUri)
+                    .transform(new RoundedCornersTransformation(10, 10))
+                    .into(mMovieImage);
                 mMovieTitle.setText(movie.title);
                 mMovieDescription.setText(movie.overview);
                 mMovieRating.setText(movie.voteAverage);
