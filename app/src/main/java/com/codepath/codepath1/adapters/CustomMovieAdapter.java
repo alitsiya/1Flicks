@@ -47,7 +47,10 @@ public class CustomMovieAdapter extends ArrayAdapter<Movie>  {
         }
 
         ImageView movieImage = (ImageView) convertView.findViewById(R.id.movieImage);
-        Picasso.with(mContext).load(imageUri).into(movieImage);
+        Picasso.with(mContext).load(imageUri).fit().centerCrop()
+            .placeholder(R.drawable.placeholder)
+            .error(R.drawable.error)
+            .into(movieImage);
         movieName.setText(movie.title);
         movieDescription.setText(movie.overview);
         // Return the completed view to render on screen

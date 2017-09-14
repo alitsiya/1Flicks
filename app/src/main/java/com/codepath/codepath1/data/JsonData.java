@@ -29,7 +29,6 @@ public class JsonData {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("@@@", "movieList" + movieList);
         return movieList;
     }
 
