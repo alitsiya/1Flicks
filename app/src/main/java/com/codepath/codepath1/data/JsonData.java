@@ -1,6 +1,8 @@
-package com.codepath.codepath1;
+package com.codepath.codepath1.data;
 
 import android.util.Log;
+
+import com.codepath.codepath1.models.Movie;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,9 +18,10 @@ public class JsonData {
                 JSONObject movie = mMovieData.getJSONArray("results").getJSONObject(i);
                 Log.d("@@@", "movie: " + movie);
                 Movie film = new Movie(
-                    movie.get("title").toString(),
+                    movie.get("original_title").toString(),
                     movie.get("overview").toString(),
                     movie.get("poster_path").toString(),
+                    movie.get("backdrop_path").toString(),
                     movie.get("popularity").toString(),
                     movie.get("vote_average").toString());
                 movieList.add(film);

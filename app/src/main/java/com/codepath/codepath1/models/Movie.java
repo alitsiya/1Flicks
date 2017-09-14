@@ -1,38 +1,42 @@
-package com.codepath.codepath1;
+package com.codepath.codepath1.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Movie implements Parcelable {
 
-    String overview;
-    String title;
-    String posterPath;
-    String popularity;
-    String voteAverage;
+    public String overview;
+    public String title;
+    public String posterPath;
+    public String backDropPath;
+    public String popularity;
+    public String voteAverage;
 
     public Movie(String title,
         String overview,
         String posterPath,
+        String backDropPath,
         String popularity,
         String voteAverage) {
         this.overview = overview;
         this.title = title;
         this.posterPath = posterPath;
+        this.backDropPath = backDropPath;
         this.popularity = popularity;
         this.voteAverage = voteAverage;
     }
 
     public Movie(Parcel in){
-        String[] data = new String[5];
+        String[] data = new String[6];
 
         in.readStringArray(data);
         // the order needs to be the same as in writeToParcel() method
         this.title = data[0];
         this.overview = data[1];
         this.posterPath = data[2];
-        this.popularity = data[3];
-        this.voteAverage = data[4];
+        this.backDropPath = data[3];
+        this.popularity = data[4];
+        this.voteAverage = data[5];
     }
     @Override
     public int describeContents() {
@@ -44,6 +48,7 @@ public class Movie implements Parcelable {
             this.title,
             this.overview,
             this.posterPath,
+            this.backDropPath,
             this.popularity,
             this.voteAverage});
     }

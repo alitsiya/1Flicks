@@ -1,6 +1,7 @@
-package com.codepath.codepath1;
+package com.codepath.codepath1.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.codepath1.R;
+import com.codepath.codepath1.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
-class CustomMovieAdapter extends ArrayAdapter<Movie>  {
+public class CustomMovieAdapter extends ArrayAdapter<Movie>  {
 
     private Context mContext;
 
-    CustomMovieAdapter(Context context, ArrayList<Movie> movies) {
+    public CustomMovieAdapter(Context context, List<Movie> movies) {
         super(context, 0, movies);
         mContext = context;
     }
@@ -35,6 +39,13 @@ class CustomMovieAdapter extends ArrayAdapter<Movie>  {
         TextView movieDescription = (TextView) convertView.findViewById(R.id.movieDescription);
         // Populate the data into the template view using the data object
         String imageUri = "https://image.tmdb.org/t/p/w500" + movie.posterPath;
+        int orientation = mContext.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            imageUri = "https://image.tmdb.org/t/p/w500" + movie.posterPath;
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            imageUri = "https://image.tmdb.org/t/p/w500" + movie.backDropPath;
+        }
+
         ImageView movieImage = (ImageView) convertView.findViewById(R.id.movieImage);
         Picasso.with(mContext).load(imageUri).into(movieImage);
         movieName.setText(movie.title);

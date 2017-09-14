@@ -1,4 +1,4 @@
-package com.codepath.codepath1;
+package com.codepath.codepath1.data;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;

@@ -2,10 +2,10 @@ package com.codepath.codepath1;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.codepath1.models.Movie;
 import com.squareup.picasso.Picasso;
 
 import static com.codepath.codepath1.MainActivity.EXTRA_MESSAGE;
@@ -21,8 +21,7 @@ public class MovieActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
-            movie = (Movie) b.getParcelable(EXTRA_MESSAGE);
-            Log.d("@@@", "movie: " + movie.toString());
+            movie = b.getParcelable(EXTRA_MESSAGE);
             if (movie != null) {
                 String imageUri = "https://image.tmdb.org/t/p/w500" + movie.posterPath;
                 TextView movieName = (TextView) findViewById(R.id.movie_title);
@@ -39,6 +38,5 @@ public class MovieActivity extends AppCompatActivity {
             }
         }
 
-        // Capture the layout's TextView and set the string as its text
     }
 }

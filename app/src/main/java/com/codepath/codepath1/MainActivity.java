@@ -10,6 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.codepath.codepath1.adapters.CustomMovieAdapter;
+import com.codepath.codepath1.data.JsonData;
+import com.codepath.codepath1.data.MovieDataRequestHandler;
+import com.codepath.codepath1.models.Movie;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONException;
@@ -17,7 +21,6 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject responseJSON) {
                 try {
                     mMovieList = json.getMovieList(responseJSON);
-                    Log.d("@@@", "onSuccess movieList " + mMovieList);
                     if (mMovieList != null) {
                         populateUsersList(mMovieList);
                     }
@@ -53,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 CharSequence text = "Error on loading movies";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(context, text, duration).show();
-
-                try {
-                    readDataFromFile();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-//                json.getMovieList(responseJSON);
             }
 
             @Override
@@ -67,13 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("@@@", "onFinish movieList " + mMovieList);
             }
         });
-    }
-    private void readDataFromFile() throws FileNotFoundException {
-//        File file = new File("//Users/alitsiya.yusupova/Projects/CodePath1/app/src/main/java/com/codepath/codepath1/moviejson.txt");
-//        Scanner sc = new Scanner(file);
-//        while(sc.hasNextLine()){
-//            Log.d("@@@", sc.nextLine());
-//        }
     }
 
     private void populateUsersList(ArrayList<Movie> movieList) {
@@ -90,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     Movie movie = (Movie) parent.getItemAtPosition(position);
                     Log.d("@@@", movie.title + " " + movie.posterPath);
                     Intent intent = new Intent(getApplicationContext(), MovieActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, new Movie(movie.title, movie.overview, movie.posterPath, movie.popularity, movie.voteAverage));
+                    intent.putExtra(EXTRA_MESSAGE, movie);
                     startActivity(intent);
                 }
 
