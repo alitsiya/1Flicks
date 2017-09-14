@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.codepath1.adapters.CustomMovieAdapter;
@@ -19,11 +20,15 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.movieItem) ListView mMovieItemList;
 
     public static final String EXTRA_MESSAGE = "com.codepath.codepath1.MESSAGE";
     ArrayList<Movie> mMovieList;
@@ -35,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
 
         mMovieDataRequestHandler.getMovieData(new JsonHttpResponseHandler() {
             @Override
@@ -68,10 +75,9 @@ public class MainActivity extends AppCompatActivity {
         // Create the adapter to convert the array to views
         CustomMovieAdapter adapter = new CustomMovieAdapter(this, movieList);
         // Attach the adapter to a ListView
-        ListView listView = (ListView) findViewById(R.id.movieItem);
-        listView.setAdapter(adapter);
+        mMovieItemList.setAdapter(adapter);
 
-        listView.setOnItemClickListener(
+        mMovieItemList.setOnItemClickListener(
             new ListView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

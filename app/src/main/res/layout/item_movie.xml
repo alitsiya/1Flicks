@@ -7,20 +7,22 @@
 
     <ImageView
         android:id="@+id/movieImage"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/vertical_image_height"
+        android:layout_height="@dimen/vertical_image_width"
         android:contentDescription="@string/imageDescr"/>
     <TextView
         android:id="@+id/movieTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="Title"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_alignParentTop="true"
         android:textStyle="bold"
         android:textSize="@dimen/text_size"
         android:layout_toEndOf="@+id/movieImage"/>
     <TextView
         android:id="@+id/movieDescription"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/movieImage"

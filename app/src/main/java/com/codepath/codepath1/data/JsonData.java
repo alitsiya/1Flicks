@@ -16,7 +16,6 @@ public class JsonData {
             int length = mMovieData.getJSONArray("results").length();
             for (int i=0; i< length; i++) {
                 JSONObject movie = mMovieData.getJSONArray("results").getJSONObject(i);
-                Log.d("@@@", "movie: " + movie);
                 Movie film = new Movie(
                     movie.get("original_title").toString(),
                     movie.get("overview").toString(),

@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/movieImage"
-        android:layout_width="300dp"
-        android:layout_height="175dp"
+        android:layout_width="@dimen/horizontal_image_height"
+        android:layout_height="@dimen/horizontal_image_width"
         android:contentDescription="@string/imageDescr"/>
     <TextView
         android:id="@+id/movieTitle"
